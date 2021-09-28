@@ -1,21 +1,25 @@
 import os
-from flask import Flask, request, abort
+import json
+from flask import Flask, request, abort, make_response
 app = Flask(__name__)
 
-@app.route('/webhook', methods=['POST'])
-def webhook():
-    dispatcher = {'1': create_tasks_group}
+@app.route('/createtasksgroup', methods=['POST'])
+def create_tasks_group():
+    dispatcher = {'1': function1()}
     logs = open('Logs.txt', 'a')
     if request.method == 'POST':
         hook = request.json
-        logs.write('test' + '\n')
-        logs.close()
-        return 'success', 200
+        if 'challenge' in hook:
+            headers = {
+                'Content-Type': 'application/json'
+            }
+            response = make_response(json.dumps(hook), 200, headers)
+            return response
     else:
         abort(400)
 
-def create_tasks_group(hook):
-    print('create')
+def function1():
+    print()
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
