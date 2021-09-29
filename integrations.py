@@ -16,7 +16,7 @@ def create_tasks_group():
             return response
         else:
             logs.write(str(hook))
-            client_name = hook['event']['itemName']
+            client_name = hook['event']['pulseName']
             query = 'mutation { create_group (board_id: 1673060240, group_name: ' + client_name + ') { id }}'
             data = {'query': query}
             requests.post(url=apiUrl, json=data, headers=headers)
