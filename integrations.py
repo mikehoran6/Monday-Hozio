@@ -15,7 +15,7 @@ def create_tasks_group():
             response = make_response(json.dumps(hook), 200, resp_headers)
             return response
         else:
-            logs.write(hook)
+            logs.write(str(hook))
             client_name = hook['event']['itemName']
             query = 'mutation { create_group (board_id: 1673060240, group_name: ' + client_name + ') { id }}'
             data = {'query': query}
