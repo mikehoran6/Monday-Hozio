@@ -20,8 +20,9 @@ def create_tasks_group():
             query = 'mutation { create_group (board_id: 1673060240, group_name: ' + client_name + ') { id }}'
             data = {'query': query}
             requests.post(url=apiUrl, json=data, headers=headers)
+            return 200, 'success'
     else:
-        abort(400)
+        return 400, 'failed'
 
 
 if __name__ == "__main__":
